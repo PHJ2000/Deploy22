@@ -1,9 +1,8 @@
 <details>
-<summary>📌 전체 Use-Case 다이어그램&nbsp;(클릭해서 펼치기)</summary>
+<summary>📌 전체 Use-Case 다이어그램&nbsp;(클릭)</summary>
 
 ```mermaid
 flowchart TD
-  %%--------------------------------------------------
   %% Actors
   actor_User(("User"))
   actor_AI(["AI Service"])
@@ -22,7 +21,7 @@ flowchart TD
     actor_User --> UpdateProj((Update Project))
     actor_User --> DeleteProj((Delete Project))
     actor_User --> SendInvite((Send Invite))
-    SendInvite ..> actor_Mail : 이메일
+    SendInvite --|이메일| actor_Mail        %% ← 레이블 표기 수정
   end
 
   %% Node
@@ -31,7 +30,7 @@ flowchart TD
     actor_User --> CreateNodes((Create Nodes))
     actor_User --> UpdateNode((Update Node))
     actor_User --> DeleteNode((Delete Node))
-    CreateNodes ..> actor_AI : GPT-3.5 Turbo
+    CreateNodes --|GPT-3.5 Turbo| actor_AI  %% ← 레이블 표기 수정
   end
 
   %% Tag
