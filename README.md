@@ -2,47 +2,54 @@
 <summary>📌 전체 Use-Case 다이어그램&nbsp;(클릭해서 펼치기)</summary>
 
 ```mermaid
-%% BRAINNET – Use-Case Diagram
-actor User
-actor "AI Service" as AI
-actor "Email Service" as Mail
+flowchart TD
+  %%--------------------------------------------------
+  %% Actors
+  actor_User(("User"))
+  actor_AI(["AI Service"])
+  actor_Mail(["Email Service"])
 
-rectangle Auth {
-  User -- (Register)
-  User -- (Login)
-}
+  %% Auth
+  subgraph Auth
+    actor_User --> Register((Register))
+    actor_User --> Login((Login))
+  end
 
-rectangle Project {
-  User -- (Create Project)
-  User -- (Get Project)
-  User -- (Update Project)
-  User -- (Delete Project)
-  User -- (Send Invite)
-  (Send Invite) ..> Mail : 이메일
-}
+  %% Project
+  subgraph Project
+    actor_User --> CreateProj((Create Project))
+    actor_User --> GetProj((Get Project))
+    actor_User --> UpdateProj((Update Project))
+    actor_User --> DeleteProj((Delete Project))
+    actor_User --> SendInvite((Send Invite))
+    SendInvite ..> actor_Mail : 이메일
+  end
 
-rectangle Node {
-  User -- (List Nodes)
-  User -- (Create Nodes)
-  User -- (Update Node)
-  User -- (Delete Node)
-  (Create Nodes) ..> AI : GPT-3.5 Turbo
-}
+  %% Node
+  subgraph Node
+    actor_User --> ListNodes((List Nodes))
+    actor_User --> CreateNodes((Create Nodes))
+    actor_User --> UpdateNode((Update Node))
+    actor_User --> DeleteNode((Delete Node))
+    CreateNodes ..> actor_AI : GPT-3.5 Turbo
+  end
 
-rectangle Tag {
-  User -- (Create Tag)
-  User -- (Attach Tag)
-  User -- (Detach Tag)
-}
+  %% Tag
+  subgraph Tag
+    actor_User --> CreateTag((Create Tag))
+    actor_User --> AttachTag((Attach Tag))
+    actor_User --> DetachTag((Detach Tag))
+  end
 
-rectangle Vote {
-  User -- (Cast Vote)
-  User -- (Confirm Votes)
-}
+  %% Vote
+  subgraph Vote
+    actor_User --> CastVote((Cast Vote))
+    actor_User --> ConfirmVotes((Confirm Votes))
+  end
 
-rectangle History {
-  User -- (Save Snapshot)
-  User -- (View History)
-}
-
-</details>
+  %% History
+  subgraph History
+    actor_User --> SaveSnap((Save Snapshot))
+    actor_User --> ViewHist((View History))
+  end
+</details> ```
